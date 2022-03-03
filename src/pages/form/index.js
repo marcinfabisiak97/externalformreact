@@ -12,19 +12,24 @@ const Form = () => {
         diameter: "",
         name: "",
         preparation_time: "",
-        type: "",
-        no_of_slices: ""
+        type: [],
+        no_of_slices: "",
+        spiciness_scale: "",
+        slices_of_bread: ""
     });
-
+    const { diameter, name, preparation_time, type, no_of_slices } = state
     const handleChange = (e) => {
         const value = e.target.value;
+        console.log(state.type)
         setState({
             ...state,
             [e.target.diameter]: value,
             [e.target.name]: value,
             [e.target.preparation_time]: value,
             [e.target.type]: value,
-            [e.target.no_of_slices]: value
+            [e.target.no_of_slices]: value,
+            [e.target.spiciness_scale]: value,
+            [e.target.slices_of_bread]: value
         });
     };
 
@@ -35,13 +40,16 @@ const Form = () => {
             name: state.name,
             preparation_time: state.preparation_time,
             type: state.type,
-            no_of_slices: state.no_of_slices
+            no_of_slices: state.no_of_slices,
+            spiciness_scale: state.spiciness_scale,
+            slices_of_bread: state.slices_of_bread
         };
         axios.post("https://reqres.in/api/users", userData).then((response) => {
             console.log(response.status);
             console.log(response.data);
         });
     };
+
     return (
         <section className='page'>
             <article className='page__contact'>
@@ -68,11 +76,14 @@ const Form = () => {
                         />
                     </div>
                     <div>
-                        <select onChange={handleChange}>
-                            {types.map((type, id) => <option key={id} name={state.type} value={state.type}>{type}</option>)};
+                        <select onChange={handleChange} name='type' value={type}>
+                            <option value="choose food">choose food</option>
+                            <option value="pizza">pizza</option>
+                            <option value="soup">soup</option>
+                            <option value="sandwich">sandwich</option>
                         </select>
                     </div>
-                    {state.type === "pizza" &&
+                    {type === "pizza" &&
                         <div>
                             <label htmlFor="no_of_slices">number of slices</label>
                             <input
@@ -98,8 +109,34 @@ const Form = () => {
                                 required
                             />
                         </div>}
-
-
+                    {type === "soup" &&
+                        <div>
+                            <label htmlFor="spiciness_scale">spiciness scale</label>
+                            <input
+                                onChange={handleChange}
+                                value={state.spiciness_scale}
+                                type="number"
+                                placeholder='spiciness scale'
+                                id="spiciness_scale"
+                                name='spiciness_scale'
+                                min={1}
+                                max={10}
+                                required
+                            />
+                        </div>}
+                    {type === "sandwich" &&
+                        <div>
+                            <label htmlFor="slices_of_bread">slices of bread</label>
+                            <input
+                                onChange={handleChange}
+                                value={state.slices_of_bread}
+                                type="number"
+                                placeholder='slices of bread'
+                                id="slices_of_bread"
+                                name='slices_of_bread'
+                                required
+                            />
+                        </div>}
                     <button type="submit" className="btn block">
                         submit
                     </button>
