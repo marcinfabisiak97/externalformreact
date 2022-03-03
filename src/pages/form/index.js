@@ -15,14 +15,14 @@ const Form = () => {
         type: [],
         no_of_slices: "",
         spiciness_scale: "",
-        slices_of_bread: ""
+        slices_of_bread: "",
+        message: ""
     });
     const { diameter, name, preparation_time, type, no_of_slices } = state
     const handleChange = (e) => {
         const value = e.target.value;
-        console.log(state.type)
-        setState({
-            ...state,
+        setState(prevState => ({
+            ...prevState,
             [e.target.diameter]: value,
             [e.target.name]: value,
             [e.target.preparation_time]: value,
@@ -30,7 +30,7 @@ const Form = () => {
             [e.target.no_of_slices]: value,
             [e.target.spiciness_scale]: value,
             [e.target.slices_of_bread]: value
-        });
+        }));
     };
 
     const handleSubmit = (e) => {
@@ -45,9 +45,10 @@ const Form = () => {
             slices_of_bread: state.slices_of_bread
         };
         axios.post("https://reqres.in/api/users", userData).then((response) => {
-            console.log(response.status);
-            console.log(response.data);
-        });
+            setState({ message: "User created successfuly." })
+        }).catch(error => {
+            window.alert("Oops!Is your Server disconneted?")
+        })
     };
 
     return (
