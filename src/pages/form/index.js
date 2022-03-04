@@ -38,7 +38,9 @@ const Form = () => {
         axios.post("https://frosty-wood-6558.getsandbox.com:443/dishes", userData).then((response) => {
             response(window.alert("goodd"))
         }).catch(error => {
-            window.alert("Oops!Is your Server disconneted?")
+            if (error.response) {
+                window.alert("Oops!Is your Server disconneted?")
+            }
         })
     };
     return (
