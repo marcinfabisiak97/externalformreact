@@ -27,16 +27,16 @@ const Form = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         const userData = {
-            diameter: order.diameter,
+            diameter: parseInt(order.diameter),
             name: order.name,
             preparation_time: order.preparation_time,
             type: order.type,
-            no_of_slices: order.no_of_slices,
-            spiciness_scale: order.spiciness_scale,
-            slices_of_bread: order.slices_of_bread
+            no_of_slices: parseInt(order.no_of_slices),
+            spiciness_scale: parseInt(order.spiciness_scale),
+            slices_of_bread: parseInt(order.slices_of_bread)
         };
         axios.post("https://frosty-wood-6558.getsandbox.com:443/dishes", userData).then((response) => {
-            response(window.alert("goodd"))
+            response(window.alert("All is good!!!"))
         }).catch(error => {
             if (error.response) {
                 window.alert("Oops!Is your Server disconneted?")
