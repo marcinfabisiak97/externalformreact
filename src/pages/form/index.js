@@ -35,16 +35,14 @@ const Form = () => {
             spiciness_scale: order.spiciness_scale,
             slices_of_bread: order.slices_of_bread
         };
-        axios.post("https://reqres.in/api/users", userData).then((response) => {
+        axios.post("https://frosty-wood-6558.getsandbox.com:443/dishes", userData).then((response) => {
             response(window.alert("goodd"))
         }).catch(error => {
             window.alert("Oops!Is your Server disconneted?")
         })
     };
-
     return (
         <div className='page'>
-
             <form className="form" onSubmit={handleSubmit}>
                 <MdOutlineFastfood size={70} />
                 <h1>Order Form</h1>
