@@ -36,7 +36,7 @@ const Form = () => {
             slices_of_bread: parseInt(order.slices_of_bread)
         };
         axios.post("https://frosty-wood-6558.getsandbox.com:443/dishes", userData).then((response) => {
-            response(window.alert("All is good!!!"))
+            response(window.alert("All sent!!!"))
         }).catch(error => {
             if (error.response) {
                 window.alert("Oops!Is your Server disconneted?")
