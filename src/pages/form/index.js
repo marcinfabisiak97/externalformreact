@@ -142,6 +142,8 @@ const Form = () => {
                             placeholder='slices of bread'
                             id="slices_of_bread"
                             name='slices_of_bread'
+                            min={1}
+                            max={10}
                             required
                         />
                     </div>}
