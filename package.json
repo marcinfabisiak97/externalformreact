@@ -14,7 +14,6 @@
     "react-icons": "^4.3.1",
     "react-redux": "^7.2.6",
     "react-scripts": "5.0.0",
-    "react-simple-timefield": "^3.2.5",
     "redux": "^4.1.2",
     "redux-form": "^8.3.8",
     "web-vitals": "^2.1.4"

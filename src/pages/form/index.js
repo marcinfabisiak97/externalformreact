@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import TimeField from 'react-simple-timefield';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { change } from '../../features/order';
 import { MdOutlineFastfood } from 'react-icons/md';
 import { Field, reduxForm } from 'redux-form'
@@ -13,7 +11,6 @@ const Form = () => {
     const dispatch = useDispatch()
     const types = [{ name: 'choose food', value: '' }, { name: 'pizza', value: 'pizza' }, { name: 'soup', value: 'soup' }, { name: 'sandwich', value: 'sandwich' }]
     const { type } = order
-    const [hasFocus, setFocus] = useState(false);
     const handleChange = (e) => {
         const value = e.target.value;
         dispatch(change({
@@ -39,10 +36,10 @@ const Form = () => {
             slices_of_bread: parseInt(order.slices_of_bread)
         };
         axios.post("https://frosty-wood-6558.getsandbox.com:443/dishes", userData).then((response) => {
-            response(window.alert("All sent!!!"))
+            response(window.alert("Form filled properly!!!"))
         }).catch(error => {
             if (error.response) {
-                window.alert("Oops!Wrong values in form")
+                window.alert("Wrong values in form")
             }
         })
     };
@@ -65,16 +62,18 @@ const Form = () => {
                         name='name'
                         required
                     />
-
                 </div>
                 <div className="form__row">
                     <label htmlFor="preparation_time">preparation time</label>
-                    <TimeField
+                    <Field
+                        component='input'
                         className="form__field"
                         onChange={handleChange}
                         value={order.preparation_time}
                         name='preparation_time'
                         showSeconds={true}
+                        placeholder="00:00:00"
+                        required
                     />
                 </div>
                 <Field
@@ -84,7 +83,6 @@ const Form = () => {
                     name='type'
                     value={type}
                     required="required"
-                    onFocus={() => { setFocus(false) }}
                 >
                     {types.map((el, id) => <option key={id} value={el.value}>{el.name}</option>)}
                 </Field>
