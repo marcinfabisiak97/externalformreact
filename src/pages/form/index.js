@@ -55,7 +55,6 @@ const Form = () => {
                         value={order.name}
                         type="text"
                         placeholder='dish name'
-                        id="name"
                         name='name'
                         required
                     />
@@ -91,7 +90,6 @@ const Form = () => {
                             value={order.no_of_slices}
                             type="number"
                             placeholder='number of slices'
-                            id="no_of_slices"
                             name='no_of_slices'
                             required
                         />
@@ -102,7 +100,6 @@ const Form = () => {
                             value={order.diameter}
                             type="number"
                             placeholder='diameter'
-                            id="diameter"
                             name='diameter'
                             max='50'
                             min='30'
@@ -119,7 +116,6 @@ const Form = () => {
                             value={order.spiciness_scale}
                             type="number"
                             placeholder='spiciness scale'
-                            id="spiciness_scale"
                             name='spiciness_scale'
                             min={1}
                             max={10}
@@ -135,7 +131,6 @@ const Form = () => {
                             value={order.slices_of_bread}
                             type="number"
                             placeholder='slices of bread'
-                            id="slices_of_bread"
                             name='slices_of_bread'
                             min={1}
                             max={10}
