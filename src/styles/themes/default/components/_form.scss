@@ -56,15 +56,12 @@ label {
 input,
 select {
   font-size: $bigText;
-  padding: 1rem 1rem;
   border-radius: $borderRadius;
   background: $grey-0;
   border-color: transparent;
   border: 1px solid $grey-300;
   text-align: left;
-}
-::placeholder {
-  color: $grey-600;
+  padding: 1rem;
 }
 
 @media only screen and (max-width: 426px) {

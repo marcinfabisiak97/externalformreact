@@ -4,20 +4,22 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { configureStore } from '@reduxjs/toolkit'
+import { combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import orderReducer from './features/order';
+import { reducer as reduxFormReducer } from 'redux-form';
+const reducer = combineReducers({
+  order: orderReducer,
+  form: reduxFormReducer
+});
 const store = configureStore({
-  reducer: {
-    order: orderReducer,
-  },
+  reducer
 })
 
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>,
+  <Provider store={store}>
+    <App />
+  </Provider>,
   document.getElementById('root')
 );
 

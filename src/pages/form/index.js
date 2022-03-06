@@ -5,11 +5,15 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { change } from '../../features/order';
 import { MdOutlineFastfood } from 'react-icons/md';
+import { Field, reduxForm } from 'redux-form'
+
+
 const Form = () => {
     const order = useSelector((state) => state.order.value);
     const dispatch = useDispatch()
-    const types = ['choose food', 'pizza', 'soup', 'sandwich']
-    const { diameter, name, preparation_time, type, no_of_slices } = order
+    const types = [{ name: 'choose food', value: '' }, { name: 'pizza', value: 'pizza' }, { name: 'soup', value: 'soup' }, { name: 'sandwich', value: 'sandwich' }]
+    const { type } = order
+    const [hasFocus, setFocus] = useState(false);
     const handleChange = (e) => {
         const value = e.target.value;
         dispatch(change({
@@ -23,7 +27,6 @@ const Form = () => {
             [e.target.slices_of_bread]: value
         }));
     };
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const userData = {
@@ -39,10 +42,12 @@ const Form = () => {
             response(window.alert("All sent!!!"))
         }).catch(error => {
             if (error.response) {
-                window.alert("Oops!Is your Server disconneted?")
+                window.alert("Oops!Wrong values in form")
             }
         })
     };
+
+
     return (
         <div className='page'>
             <form className="form" onSubmit={handleSubmit}>
@@ -50,7 +55,8 @@ const Form = () => {
                 <h1>Order Form</h1>
                 <div className="form__row">
                     <label htmlFor="name">dish name</label>
-                    <input
+                    <Field
+                        component='input'
                         onChange={handleChange}
                         value={order.name}
                         type="text"
@@ -59,30 +65,35 @@ const Form = () => {
                         name='name'
                         required
                     />
+
                 </div>
                 <div className="form__row">
-                    <label htmlFor="time">preparation time</label>
+                    <label htmlFor="preparation_time">preparation time</label>
                     <TimeField
                         className="form__field"
                         onChange={handleChange}
                         value={order.preparation_time}
                         name='preparation_time'
                         showSeconds={true}
-                        required
                     />
                 </div>
-
-                <select className="form__select" onChange={handleChange} name='type' value={type}>
-                    <option value="choose food">choose food</option>
-                    <option value="pizza">pizza</option>
-                    <option value="soup">soup</option>
-                    <option value="sandwich">sandwich</option>
-                </select>
+                <Field
+                    className="form__select"
+                    component='select'
+                    onChange={handleChange}
+                    name='type'
+                    value={type}
+                    required="required"
+                    onFocus={() => { setFocus(false) }}
+                >
+                    {types.map((el, id) => <option key={id} value={el.value}>{el.name}</option>)}
+                </Field>
 
                 {type === "pizza" &&
                     <div className="form__row">
                         <label htmlFor="no_of_slices">number of slices</label>
-                        <input
+                        <Field
+                            component='input'
                             onChange={handleChange}
                             value={order.no_of_slices}
                             type="number"
@@ -92,7 +103,8 @@ const Form = () => {
                             required
                         />
                         <label htmlFor="diameter">diameter</label>
-                        <input
+                        <Field
+                            component='input'
                             onChange={handleChange}
                             value={order.diameter}
                             type="number"
@@ -108,7 +120,8 @@ const Form = () => {
                 {type === "soup" &&
                     <div className="form__row">
                         <label htmlFor="spiciness_scale">spiciness scale</label>
-                        <input
+                        <Field
+                            component='input'
                             onChange={handleChange}
                             value={order.spiciness_scale}
                             type="number"
@@ -123,7 +136,8 @@ const Form = () => {
                 {type === "sandwich" &&
                     <div className="form__row">
                         <label htmlFor="slices_of_bread">slices of bread</label>
-                        <input
+                        <Field
+                            component='input'
                             onChange={handleChange}
                             value={order.slices_of_bread}
                             type="number"
@@ -140,5 +154,8 @@ const Form = () => {
         </div >
     );
 };
+export default reduxForm({
+    form: 'formOrder',
+    destroyOnUnmount: false,
 
-export default Form;
+})(Form)
