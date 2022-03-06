@@ -147,5 +147,4 @@ const Form = () => {
 export default reduxForm({
     form: 'formOrder',
     destroyOnUnmount: false,
-
 })(Form)
