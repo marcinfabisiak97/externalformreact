@@ -5,7 +5,6 @@ import { change } from '../../features/order';
 import { MdOutlineFastfood } from 'react-icons/md';
 import { Field, reduxForm } from 'redux-form'
 
-
 const Form = () => {
     const order = useSelector((state) => state.order.value);
     const dispatch = useDispatch()
@@ -43,8 +42,6 @@ const Form = () => {
             }
         })
     };
-
-
     return (
         <div className='page'>
             <form className="form" onSubmit={handleSubmit}>
