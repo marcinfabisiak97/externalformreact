@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { change } from '../../features/order';
@@ -68,7 +68,6 @@ const Form = () => {
                         onChange={handleChange}
                         value={order.preparation_time}
                         name='preparation_time'
-                        showSeconds={true}
                         placeholder="00:00:00"
                         required
                     />
@@ -83,7 +82,6 @@ const Form = () => {
                 >
                     {types.map((el, id) => <option key={id} value={el.value}>{el.name}</option>)}
                 </Field>
-
                 {type === "pizza" &&
                     <div className="form__row">
                         <label htmlFor="no_of_slices">number of slices</label>
